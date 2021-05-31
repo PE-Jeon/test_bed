@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:test_bed/provider/counter_app.dart';
 import 'package:test_bed/provider/simple_app.dart';
+import 'package:test_bed/provider_architecture/__init__.dart';
 
 void main() {
-  runApp(SimpleApp());
+  runApp(ProviderMain());
 }
 
 class MyApp extends StatelessWidget {
