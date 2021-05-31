@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_bed/provider/counter_app.dart';
-import 'package:test_bed/provider/simple_app.dart';
-import 'package:test_bed/provider_architecture/__init__.dart';
-import 'package:test_bed/stacked_start/ui/views/home/home_view.dart';
+import 'package:test_bed/stacked_start/app/router.gr.dart' as auto_router;
 
 
 
@@ -16,7 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: HomeView(),
+      initialRoute: auto_router.Routes.startupView,
+      onGenerateRoute: auto_router.Router().onGenerateRoute
     );
   }
 }
