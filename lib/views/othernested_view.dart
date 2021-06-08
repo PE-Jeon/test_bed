@@ -3,7 +3,7 @@ import 'package:stacked/stacked.dart';
 import 'package:test_bed/views/othernested_viewmodel.dart';
 
 class OtherNestedView extends StatelessWidget {
-  const OtherNestedView({Key key}) : super(key: key);
+  const OtherNestedView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

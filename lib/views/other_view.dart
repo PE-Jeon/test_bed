@@ -3,7 +3,7 @@ import 'package:stacked/stacked.dart';
 import 'package:test_bed/views/other_viewmodel.dart';
 
 class OtherView extends StatelessWidget {
-  const OtherView({Key key}) : super(key: key);
+  const OtherView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

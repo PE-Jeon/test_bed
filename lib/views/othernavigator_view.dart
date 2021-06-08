@@ -3,7 +3,7 @@ import 'package:stacked/stacked.dart';
 import 'package:test_bed/views/othernavigator_viewmodel.dart';
 
 class OtherNavigatorView extends StatelessWidget {
-  const OtherNavigatorView({Key key}) : super(key: key);
+  const OtherNavigatorView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
