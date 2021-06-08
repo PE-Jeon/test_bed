@@ -1,7 +1,9 @@
+
+
 import 'package:flutter/material.dart';
-import 'package:test_bed/stacked_start/app/router.gr.dart' as auto_router;
+import 'package:stacked_services/stacked_services.dart';
 
-
+import 'app/app.router.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,8 +15,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      initialRoute: auto_router.Routes.startupView,
-      onGenerateRoute: auto_router.Router().onGenerateRoute
+        // If you've added the stacked_services package then set the navigatorKey, otherwise set
+        // your own navigator key
+      navigatorKey: StackedService.navigatorKey,
+      // Construct the StackedRouter and set the onGenerateRoute function
+      onGenerateRoute: StackedRouter().onGenerateRoute,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
     );
   }
 }
