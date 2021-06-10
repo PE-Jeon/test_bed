@@ -1,4 +1,5 @@
-
+import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -17,8 +18,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-        // If you've added the stacked_services package then set the navigatorKey, otherwise set
-        // your own navigator key
+      // If you've added the stacked_services package then set the navigatorKey, otherwise set
+      // your own navigator key
       navigatorKey: StackedService.navigatorKey,
       // Construct the StackedRouter and set the onGenerateRoute function
       onGenerateRoute: StackedRouter().onGenerateRoute,
