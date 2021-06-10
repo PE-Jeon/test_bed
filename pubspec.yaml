@@ -25,7 +25,12 @@ dependencies:
     sdk: flutter
 
   stacked:
-  stacked_services: 
+  stacked_services:
+  firebase_core: ^1.2.1
+  firebase_messaging: ^10.0.1
+  firebase_analytics:
+  cloud_firestore:
+
 
 
   # The following adds the Cupertino Icons font to your application.
