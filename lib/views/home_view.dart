@@ -13,12 +13,12 @@ class HomeView extends StatelessWidget {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-            Text("Hom View"),
+            Text("Home View"),
           ]),
         ),
         floatingActionButton: FloatingActionButton(
           child: Text("T"),
-          onPressed: model.navigateToBottomView,
+          onPressed: () {},
         ),
       ),
       viewModelBuilder: () => HomeViewModel(),
