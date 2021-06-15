@@ -7,6 +7,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -165,14 +166,17 @@ class _Application extends State<Application> {
     }
 
     try {
-      await http.post(
-        Uri.parse('https://api.rnfirebase.io/messaging/send'),
+      var response = await http.post(
+        Uri.parse('https://fcm.googleapis.com/v1/projects/app-dev-c912f/messages:send'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
+          'Autorization': 'Bearer AAAACF7wA-g:APA91bFu52tXr-r5t4lt6Y07g5RNxlTHzHPXCR9if0zF4BEZ1WLn6xuc_-0PkFwPrM0mjA-tWp5DbV34UKLI5h5f_1YfdZAa0UBFwXOUnEPOKIIkErhAdgQes3DGokgRb9Fj4QEROvg_'
         },
         body: constructFCMPayload(_token),
       );
       print('FCM request for device sent!');
+      print(response);
+      print(response.body);
     } catch (e) {
       print(e);
     }
@@ -214,6 +218,45 @@ class _Application extends State<Application> {
       default:
         break;
     }
+  }
+  Future<void> fcmTest() async {
+    HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('sendFcm');
+
+    final results = await callable();
+    print(results.data);
+  }
+
+  final HttpsCallable sendFCM = FirebaseFunctions.instance
+      .httpsCallable('sendFCM'); // 호출할 Cloud Functions 의 함수명
+    // ..timeout = const Duration(seconds: 30);
+
+  void sendFcmWithData(
+      // {List<String> tokenList,
+      //   String team,
+      //   String name,
+      //   String position,
+      //   String collection,
+      //   String alarmId}
+        ) async {
+    await sendFCM.call(
+
+    // final HttpsCallableResult result = await sendFCM.call(
+      <String, dynamic>{
+        // "token": tokenList,
+        // "team": team,
+        // "name": name,
+        // "position": position,
+        // "collection": collection,
+        // "alarmId": alarmId,
+
+        // "token": "APA91bFD7je0qEB_Cxmgc8vAUtQYjAitwvT9R8bAH8hTxKXDpQDnqpXV35j2qcDRioxPqOPbRr9iy-AWS-HPUtuUFCtRJ479fijGR-6CK_-V3mm8X9jL2XQoE2DLsnmLV9l_FkW3xC25",
+        // "team": "team",
+        // "name": "name",
+        // "position": "position",
+        // "collection": "test",
+        // "alarmId": "34563456",
+      },
+    );
   }
 
   @override
@@ -260,6 +303,11 @@ class _Application extends State<Application> {
                 : Text(token, style: const TextStyle(fontSize: 12));
           })),
           MetaCard('Message Stream', MessageList()),
+          ElevatedButton(
+            onPressed: () => {
+              fcmTest()
+            },
+          )
         ]),
       ),
     );

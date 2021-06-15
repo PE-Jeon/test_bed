@@ -26,12 +26,13 @@ dependencies:
 
   stacked:
   stacked_services:
-  firebase_core: ^1.2.1
+  firebase_core:
   firebase_messaging:
   firebase_analytics:
   flutter_local_notifications:
-  cloud_firestore: ^2.2.1
+  cloud_firestore:
   get_it:
+  cloud_functions:
 
 
 
