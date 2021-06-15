@@ -49,7 +49,13 @@ class MessageView extends StatelessWidget {
               row('Category', message.category),
               row('Collapse Key', message.collapseKey),
               row('Content Available', message.contentAvailable.toString()),
-              row('Data', message.data.toString()),
+              // row('Data', message.data.toString()),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: row(
+                    'Data', message.data.toString(),
+                ),
+              ),
               row('From', message.from),
               row('Message ID', message.messageId),
               row('Sent Time', message.sentTime?.toString()),
