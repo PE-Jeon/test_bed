@@ -53,7 +53,7 @@ class MessageView extends StatelessWidget {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: row(
-                    'Data', message.data.toString(),
+                    'Data', message.data["tmp"].toString(),
                 ),
               ),
               row('From', message.from),

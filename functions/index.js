@@ -10,21 +10,25 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
   response.send("Hello from Firebase!");
 });
 
-exports.sendFcm = functions.https.onRequest(async (req, res) => {
-    // Get the owners details
-    const owner = "";
-
-    // Get the users details
-    const user = "";
+exports.sendFcm = functions.https.onCall(async (data, context) => {
+    const _tokens = data["tokens"];
+    const _title = data["title"];
+    const _message = data["message"];
+    const _alarmId = data["alarmId"];
+    const _route = data["route"];
 
     await admin.messaging().sendToDevice(
-      "dWpBjnBURk6VG1_8u2CKgr:APA91bFD7je0qEB_Cxmgc8vAUtQYjAitwvT9R8bAH8hTxKXDpQDnqpXV35j2qcDRioxPqOPbRr9iy-AWS-HPUtuUFCtRJ479fijGR-6CK_-V3mm8X9jL2XQoE2DLsnmLV9l_FkW3xC25", // ['token_1', 'token_2', ...]
+      _tokens,
       {
-        data: {
-          owner: "JSON.stringify(owner)",
-          user: "JSON.stringify(user)",
-          picture: "picture",
+        notification: {
+          title: _title,
+          body: _message,
+          alarmId: _alarmId,
+          clickAction: 'FLUTTER_NOTIFICATION_CLICK',
         },
+        data: {
+          route: _route,
+        }
       },
       {
         // Required for background/quit data-only messages on iOS

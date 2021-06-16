@@ -60,7 +60,7 @@ Future<void> main() async {
     /// default FCM channel to enable heads up notifications.
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>()
+            AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
 
     /// Update the iOS foreground notification presentation options to allow
@@ -167,10 +167,12 @@ class _Application extends State<Application> {
 
     try {
       var response = await http.post(
-        Uri.parse('https://fcm.googleapis.com/v1/projects/app-dev-c912f/messages:send'),
+        Uri.parse(
+            'https://fcm.googleapis.com/v1/projects/app-dev-c912f/messages:send'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Autorization': 'Bearer AAAACF7wA-g:APA91bFu52tXr-r5t4lt6Y07g5RNxlTHzHPXCR9if0zF4BEZ1WLn6xuc_-0PkFwPrM0mjA-tWp5DbV34UKLI5h5f_1YfdZAa0UBFwXOUnEPOKIIkErhAdgQes3DGokgRb9Fj4QEROvg_'
+          'Autorization':
+              'Bearer AAAACF7wA-g:APA91bFu52tXr-r5t4lt6Y07g5RNxlTHzHPXCR9if0zF4BEZ1WLn6xuc_-0PkFwPrM0mjA-tWp5DbV34UKLI5h5f_1YfdZAa0UBFwXOUnEPOKIIkErhAdgQes3DGokgRb9Fj4QEROvg_'
         },
         body: constructFCMPayload(_token),
       );
@@ -219,8 +221,35 @@ class _Application extends State<Application> {
         break;
     }
   }
+
+  Future<void> sendFcmWithTokens(
+      List tokens, String title, String message, String route) async {
+    HttpsCallable callFcm = FirebaseFunctions.instance.httpsCallable('sendFcm');
+
+    String alarmId = "alarmId";
+
+    var payload = <String, dynamic>{
+      "tokens": tokens,
+      "title": title,
+      "message": message,
+      "alarmId": alarmId,
+      "route": route,
+    };
+    print("send FCM with Tokens");
+    print(payload);
+    print(payload["title"]);
+    print(payload["message"]);
+
+    try {
+      await callFcm.call(payload);
+    } catch(exception) {
+      print(exception.toString());
+    }
+  }
+
   Future<void> fcmTest() async {
-    HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('sendFcm');
+    HttpsCallable callable =
+        FirebaseFunctions.instance.httpsCallable('sendFcm');
 
     final results = await callable();
     print(results.data);
@@ -228,19 +257,17 @@ class _Application extends State<Application> {
 
   final HttpsCallable sendFCM = FirebaseFunctions.instance
       .httpsCallable('sendFCM'); // 호출할 Cloud Functions 의 함수명
-    // ..timeout = const Duration(seconds: 30);
+  // ..timeout = const Duration(seconds: 30);
 
-  void sendFcmWithData(
-      // {List<String> tokenList,
+  void sendFcmWithData(// {List<String> tokenList,
       //   String team,
       //   String name,
       //   String position,
       //   String collection,
       //   String alarmId}
-        ) async {
+      ) async {
     await sendFCM.call(
-
-    // final HttpsCallableResult result = await sendFCM.call(
+      // final HttpsCallableResult result = await sendFCM.call(
       <String, dynamic>{
         // "token": tokenList,
         // "team": team,
@@ -305,7 +332,12 @@ class _Application extends State<Application> {
           MetaCard('Message Stream', MessageList()),
           ElevatedButton(
             onPressed: () => {
-              fcmTest()
+              sendFcmWithTokens(
+                  ["dWpBjnBURk6VG1_8u2CKgr:APA91bFD7je0qEB_Cxmgc8vAUtQYjAitwvT9R8bAH8hTxKXDpQDnqpXV35j2qcDRioxPqOPbRr9iy-AWS-HPUtuUFCtRJ479fijGR-6CK_-V3mm8X9jL2XQoE2DLsnmLV9l_FkW3xC25", // ['token_1', 'token_2', ...]
+                    "fpSG1tZIjUiCj-4Z-E6dhA:APA91bGotWmG8iTJVSo4GOMZBO4qIJ-JFZw8--a5wmAam8g5r3YSG8HcdkUI_iEHo17MJnwLt0skIdfAtH9USlJggWDJbALlexyakeQ9n1ecG6Dep8zjrs9zxS8dg7QVLbDjAdrclsPJ"],
+                  "title",
+                  "contents",
+                  "/")
             },
           )
         ]),
@@ -334,7 +366,7 @@ class MetaCard extends StatelessWidget {
                   Container(
                       margin: const EdgeInsets.only(bottom: 16),
                       child:
-                      Text(_title, style: const TextStyle(fontSize: 18))),
+                          Text(_title, style: const TextStyle(fontSize: 18))),
                   _children,
                 ]))));
   }
