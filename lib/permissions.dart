@@ -21,7 +21,7 @@ class _Permissions extends State<Permissions> {
     });
 
     NotificationSettings settings =
-    await FirebaseMessaging.instance.requestPermission(
+        await FirebaseMessaging.instance.requestPermission(
       announcement: true,
       carPlay: true,
       criticalAlert: true,
@@ -72,7 +72,8 @@ class _Permissions extends State<Permissions> {
         row('Sound', settingsMap[_settings.sound]),
       ],
       ElevatedButton(
-          onPressed: () => {}, child: const Text('Reload Permissions')),
+          onPressed: () => {requestPermissions},
+          child: const Text('Reload Permissions')),
     ]);
   }
 }

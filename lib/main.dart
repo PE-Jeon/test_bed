@@ -224,7 +224,7 @@ class _Application extends State<Application> {
 
   Future<void> sendFcmWithTokens(
       List tokens, String title, String message, String route) async {
-    HttpsCallable callFcm = FirebaseFunctions.instance.httpsCallable('sendFcm');
+    HttpsCallable callFcm = FirebaseFunctions.instance.httpsCallable('sendFcmNew');
 
     String alarmId = "alarmId";
 
@@ -333,8 +333,7 @@ class _Application extends State<Application> {
           ElevatedButton(
             onPressed: () => {
               sendFcmWithTokens(
-                  ["dWpBjnBURk6VG1_8u2CKgr:APA91bFD7je0qEB_Cxmgc8vAUtQYjAitwvT9R8bAH8hTxKXDpQDnqpXV35j2qcDRioxPqOPbRr9iy-AWS-HPUtuUFCtRJ479fijGR-6CK_-V3mm8X9jL2XQoE2DLsnmLV9l_FkW3xC25", // ['token_1', 'token_2', ...]
-                    "fpSG1tZIjUiCj-4Z-E6dhA:APA91bGotWmG8iTJVSo4GOMZBO4qIJ-JFZw8--a5wmAam8g5r3YSG8HcdkUI_iEHo17MJnwLt0skIdfAtH9USlJggWDJbALlexyakeQ9n1ecG6Dep8zjrs9zxS8dg7QVLbDjAdrclsPJ"],
+                  ["cWcAFQT4SsOqUU_HRW0Ets:APA91bHiPrSEpRKy9Gp7h9_HUj43H7ZQk9ZNFkGELN2SBq06Fv496qxHRzY0H0RlRJBxhIFU5buwMK1Z6GPoE0XGfQxUbHBYV5GITx4s-bgR3_HGuQ0L5tTg-j-XX45o3VhqjO541wZr"],
                   "title",
                   "contents",
                   "/")
