@@ -73,16 +73,6 @@ Future<void> main() async {
       print(payload.runtimeType);
     }
 
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: (String payload) async {
-          print('in initialize');
-          if (payload != null) {
-            debugPrint('notification payload: $payload');
-          }
-          // selectedNotificationPayload = payload;
-          // selectNotificationSubject.add(payload);
-        });
-
 
 
     /// Create an Android Notification Channel.
@@ -94,7 +84,8 @@ Future<void> main() async {
         AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
 
-
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: selectNotification);
 
     /// Update the iOS foreground notification presentation options to allow
     /// heads up notifications.

@@ -26,14 +26,21 @@ dependencies:
 
   stacked:
   stacked_services:
+
   firebase_core:
   firebase_messaging:
   firebase_analytics:
-  flutter_local_notifications:
   cloud_firestore:
+  flutter_local_notifications:
+
+  get:
+  get_storage:
   get_it:
   cloud_functions:
 
+  device_info:
+  rxdart:
+  flutter_native_timezone:
 
 
   # The following adds the Cupertino Icons font to your application.
